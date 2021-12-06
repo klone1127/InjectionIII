@@ -3,13 +3,14 @@
 	url = https://github.com/johnno1962/XprobePlugin
 [submodule "SwiftTrace"]
 	path = SwiftTrace
-	url = https://github.com/johnno1962/SwiftTrace
+	url = https://github.com/klone1127/SwiftTrace
 [submodule "Remote"]
 	path = Remote
 	url = https://github.com/johnno1962/Remote.git
 [submodule "HotReloading"]
+	branch = "for-iPhone"
 	path = HotReloading
-	url = https://github.com/johnno1962/HotReloading.git
+	url = https://github.com/klone1127/HotReloading.git
 [submodule "DLKit"]
 	path = DLKit
 	url = https://github.com/johnno1962/DLKit
