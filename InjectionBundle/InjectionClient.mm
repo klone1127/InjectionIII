@@ -24,6 +24,8 @@
 #import "iOSInjection10-Swift.h"
 #elif __has_include("maciOSInjection-Swift.h")
 #import "maciOSInjection-Swift.h"
+#elif __has_include("iOSDeviceInjection-Swift.h")
+#import "iOSDeviceInjection-Swift.h"
 #else
 #import "iOSInjection-Swift.h"
 #endif
@@ -150,7 +152,7 @@ static struct {
 
 + (void)load {
     // connect to InjectionIII.app using socket
-    if (InjectionClient *client = [self connectTo:INJECTION_ADDRESS])
+    if (InjectionClient *client = [self connectTo:INJECTION_PORT])
         [client run];
     else {
         printf("💉 Injection loaded but could not connect. Is InjectionIII.app running?\n");

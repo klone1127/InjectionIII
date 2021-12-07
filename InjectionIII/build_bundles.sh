@@ -41,6 +41,9 @@ function build_bundle () {
 build_bundle iOS iPhoneSimulator iphonesimulator &&
 build_bundle tvOS AppleTVSimulator appletvsimulator &&
 
+# iphoneOS
+build_bundle iOSDevice iPhoneOS iphoneos &&
+
 # iphoneos on M1 mac (requires Sanbox switched off)
 #build_bundle maciOS iPhoneOS iphoneos &&
 
@@ -59,3 +62,6 @@ done &&
 # This seems to be a bug producing .swiftinterface files.
 perl -pi.bak -e 's/SwiftTrace.(Swift(Trace|Meta)|dyld_interpose_tuple)/$1/g' $CODESIGNING_FOLDER_PATH/Contents/Resources/{macOSInjection.bundle/Contents,{i,maci,tv}OSInjection.bundle}/Frameworks/SwiftTrace.framework/Modules/*/*.swiftinterface &&
 find $CODESIGNING_FOLDER_PATH/Contents/Resources/*.bundle -name '*.bak' -delete
+
+# setup InjectionSetup
+rsync -au "$SRCROOT/InjectionIII/InjectionSetup" "$CODESIGNING_FOLDER_PATH/Contents/Resources"
