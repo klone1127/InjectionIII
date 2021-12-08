@@ -18,15 +18,23 @@ function build_bundle () {
     FAMILY=$1
     PLATFORM=$2
     SDK=$3
+    ARCHSValue=$4
+    if [ $ARCHSValue ] ;then
+        echo "使用指定架构 - ：$ARCHSValue"
+    else
+        echo "未指定架构 - 使用默认的：$ARCHS"
+        ARCHSValue=$ARCHS
+    fi
+    
     SWIFT_DYLIBS_PATH="$FIXED_XCODE_DEVELOPER_PATH/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/$SDK"
     XCTEST_FRAMEWORK_PATH="$FIXED_XCODE_DEVELOPER_PATH/Platforms/$PLATFORM.platform/Developer/Library/Frameworks"
     if [ ! -d "$SWIFT_DYLIBS_PATH" -o ! -d "${XCTEST_FRAMEWORK_PATH}/XCTest.framework" ]; then
         echo "Missing RPATH $SWIFT_DYLIBS_PATH $XCTEST_FRAMEWORK_PATH"
         exit 1
     fi
-    "$DEVELOPER_BIN_DIR"/xcodebuild SYMROOT=$SYMROOT ARCHS="$ARCHS" -sdk $SDK -config $CONFIGURATION -target SwiftTrace &&
-    "$DEVELOPER_BIN_DIR"/xcodebuild SYMROOT=$SYMROOT ARCHS="$ARCHS" PRODUCT_NAME="${FAMILY}Injection" LD_RUNPATH_SEARCH_PATHS="$SWIFT_DYLIBS_PATH $XCTEST_FRAMEWORK_PATH @loader_path/Frameworks" -sdk $SDK -config $CONFIGURATION -target InjectionBundle &&
-    "$DEVELOPER_BIN_DIR"/xcodebuild SYMROOT=$SYMROOT ARCHS="$ARCHS" PRODUCT_NAME="${FAMILY}SwiftUISupport" -sdk $SDK -config $CONFIGURATION -target SwiftUISupport &&
+    "$DEVELOPER_BIN_DIR"/xcodebuild SYMROOT=$SYMROOT ARCHS="$ARCHSValue" -sdk $SDK -config $CONFIGURATION -target SwiftTrace &&
+    "$DEVELOPER_BIN_DIR"/xcodebuild SYMROOT=$SYMROOT ARCHS="$ARCHSValue" PRODUCT_NAME="${FAMILY}Injection" LD_RUNPATH_SEARCH_PATHS="$SWIFT_DYLIBS_PATH $XCTEST_FRAMEWORK_PATH @loader_path/Frameworks" -sdk $SDK -config $CONFIGURATION -target InjectionBundle &&
+    "$DEVELOPER_BIN_DIR"/xcodebuild SYMROOT=$SYMROOT ARCHS="$ARCHSValue" PRODUCT_NAME="${FAMILY}SwiftUISupport" -sdk $SDK -config $CONFIGURATION -target SwiftUISupport &&
 
     rsync -au $SYMROOT/$CONFIGURATION-$SDK/*.bundle "$CODESIGNING_FOLDER_PATH/Contents/Resources" &&
     mkdir -p "$CODESIGNING_FOLDER_PATH/Contents/Resources/${FAMILY}Injection.bundle/Frameworks/SwiftTrace.framework/Versions/A/Resources" &&
@@ -37,12 +45,12 @@ function build_bundle () {
     done
 }
 
-#build_bundle macOS MacOSX macosx &&
+build_bundle macOS MacOSX macosx &&
 build_bundle iOS iPhoneSimulator iphonesimulator &&
 build_bundle tvOS AppleTVSimulator appletvsimulator &&
 
 # iphoneOS
-build_bundle iOSDevice iPhoneOS iphoneos &&
+build_bundle iOSDevice iPhoneOS iphoneos arm64 &&
 
 # iphoneos on M1 mac (requires Sanbox switched off)
 #build_bundle maciOS iPhoneOS iphoneos &&

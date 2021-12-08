@@ -1,6 +1,7 @@
 [submodule "XprobePlugin"]
+	branch = "for-iPhone"
 	path = XprobePlugin
-	url = https://github.com/johnno1962/XprobePlugin
+	url = https://github.com/klone1127/XprobePlugin
 [submodule "SwiftTrace"]
 	path = SwiftTrace
 	url = https://github.com/klone1127/SwiftTrace

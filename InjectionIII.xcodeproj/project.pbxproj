@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		95E045C2275EF7FE0038DFEB /* ScopedBookmarkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E045C1275EF7FE0038DFEB /* ScopedBookmarkManager.swift */; };
 		95E045C4275F0A800038DFEB /* InjectionSetup in Resources */ = {isa = PBXBuildFile; fileRef = 95E045C3275F0A800038DFEB /* InjectionSetup */; };
 		BB16653A25E9A5F2001407AE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BB16653925E9A5F0001407AE /* main.m */; };
 		BB16653E25EC5FE0001407AE /* InjectionClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB16653D25EC5FDF001407AE /* InjectionClient.swift */; };
@@ -152,7 +151,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		95E045C1275EF7FE0038DFEB /* ScopedBookmarkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScopedBookmarkManager.swift; sourceTree = "<group>"; };
 		95E045C3275F0A800038DFEB /* InjectionSetup */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = InjectionSetup; sourceTree = "<group>"; };
 		BB037DF31FAD808B004B267C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		BB037DF41FAD80D0004B267C /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -536,7 +534,6 @@
 				BBCA02011FB0F10300E45F0F /* AppDelegate.swift */,
 				BB7D7CAB2512F8F00069FE2C /* UpdateCheck.swift */,
 				BBCA02551FB1099500E45F0F /* InjectionServer.swift */,
-				95E045C1275EF7FE0038DFEB /* ScopedBookmarkManager.swift */,
 				CEC17029253ED117002E823F /* Experimental.swift */,
 				BBB2C6FD26FC9C2900E91E67 /* TupleRegex.swift */,
 				BBE490CE1FB2368A003D41BB /* FileWatcher.swift */,
@@ -1021,7 +1018,6 @@
 				BBEB704C1FD28C6F00127711 /* XcodeHash.m in Sources */,
 				BBCA02021FB0F10300E45F0F /* AppDelegate.swift in Sources */,
 				BB7D7CAC2512F8F00069FE2C /* UpdateCheck.swift in Sources */,
-				95E045C2275EF7FE0038DFEB /* ScopedBookmarkManager.swift in Sources */,
 				BB4EC3FE244FA3C40079E244 /* RMWindowController.m in Sources */,
 				BBE490D01FB2368A003D41BB /* FileWatcher.swift in Sources */,
 				BB4EC3FC244FA3C40079E244 /* RMDeviceController.m in Sources */,
@@ -1500,7 +1496,6 @@
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "InjectionBundle/XprobeSwift-Bridging-Header.h";
-				VALID_ARCHS = "i386 x86_64 arm64";
 				WRAPPER_EXTENSION = bundle;
 			};
 			name = Debug;
@@ -1525,7 +1520,6 @@
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "InjectionBundle/XprobeSwift-Bridging-Header.h";
-				VALID_ARCHS = "i386 x86_64 arm64";
 				WRAPPER_EXTENSION = bundle;
 			};
 			name = Release;
