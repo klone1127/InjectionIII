@@ -529,6 +529,7 @@
 			isa = PBXGroup;
 			children = (
 				95E045C3275F0A800038DFEB /* InjectionSetup */,
+				BBA7BE0223473D660067124D /* build_bundles.sh */,
 				BB16653925E9A5F0001407AE /* main.m */,
 				BB6306FD1FCD1A410021D30C /* Credits.rtf */,
 				BBCA02011FB0F10300E45F0F /* AppDelegate.swift */,
@@ -552,7 +553,6 @@
 				BBCA02081FB0F10400E45F0F /* Info.plist */,
 				BBCA02581FB112F500E45F0F /* App.icns */,
 				BBCA020B1FB0F10400E45F0F /* InjectionIII.entitlements */,
-				BBA7BE0223473D660067124D /* build_bundles.sh */,
 				BBDF943C2349277A00334E08 /* InjectionIII-Bridging-Header.h */,
 				BB4EC3FF244FA42A0079E244 /* RemoteCapture.h */,
 				BB53B647244FC2F800F006E3 /* RemoteHeaders.h */,
@@ -785,7 +785,7 @@
 					};
 					BB6C87C32520D0D1005AFCFC = {
 						CreatedOnToolsVersion = 11.5;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 					BBCA01FD1FB0F10300E45F0F = {
 						CreatedOnToolsVersion = 9.0.1;
@@ -1369,11 +1369,11 @@
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = XP6GSQ673W;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1387,7 +1387,6 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.johnholdsworth.SwiftTrace;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
@@ -1406,11 +1405,11 @@
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = XP6GSQ673W;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1419,7 +1418,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.johnholdsworth.SwiftTrace;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;

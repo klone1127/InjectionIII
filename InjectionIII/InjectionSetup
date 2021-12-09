@@ -25,19 +25,36 @@ function check_src() {
 }
 
 function sign_bundle() {
-    sign "$bundle_src"
-    find "$bundle_src" -name '*.dylib' | while read file; do sign "$file"; done
+    echo "开始签名: $bundle_src"
+    find "$bundle_src" -name 'iOSDeviceInjection' | while read file; do sign_bundle_exe "$file"; done
+    find "$bundle_src" -name '*.framework' | while read file; do sign "$file"; done
+    echo "结束签名"
+}
+
+function sign_bundle_exe() {
+    echo "iOSDeviceInjection位置： --------- $1"
+    /usr/bin/codesign -fs "$EXPANDED_CODE_SIGN_IDENTITY" "$1"
 }
 
 function sign() {
-    /usr/bin/codesign --deep --force -s "$EXPANDED_CODE_SIGN_IDENTITY" "$1"
+    frameworkPath="$1/Versions/A/SwiftTrace"
+    echo "执行签名指令： $1"
+    echo "$EXPANDED_CODE_SIGN_IDENTITY"
+    echo "frameworkPath 目录：$frameworkPath"
+    # 获取目标App Bundle identifier($PRODUCT_BUNDLE_IDENTIFIER)，修改 Bundle identifier 为目标App的
+    frameworkPlistPath="$1/Info.plist"
+    /usr/libexec/PlistBuddy -c "Set :CFBundleIdentifier $PRODUCT_BUNDLE_IDENTIFIER" $frameworkPlistPath
+    /usr/libexec/PlistBuddy -c "Save" $frameworkPlistPath
+    echo "修改后的info.plist"
+    /usr/libexec/PlistBuddy -c "Print" $frameworkPlistPath
+    /usr/bin/codesign -fs "$EXPANDED_CODE_SIGN_IDENTITY" "$frameworkPath"
 }
 
-function copy_bundle() {  
+function copy_bundle() {
     if [[ -d "$bundle_dst" ]]; then
         rm -rf "$bundle_dst"
     fi
-    cp -rf "$bundle_src" "$bundle_dst"
+    cp -af "$bundle_src" "$bundle_dst"
 }
 
 function recordSign() {

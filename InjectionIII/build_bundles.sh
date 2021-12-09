@@ -45,12 +45,12 @@ function build_bundle () {
     done
 }
 
+# iphoneOS
+build_bundle iOSDevice iPhoneOS iphoneos arm64 &&
+
 build_bundle macOS MacOSX macosx &&
 build_bundle iOS iPhoneSimulator iphonesimulator &&
 build_bundle tvOS AppleTVSimulator appletvsimulator &&
-
-# iphoneOS
-build_bundle iOSDevice iPhoneOS iphoneos arm64 &&
 
 # iphoneos on M1 mac (requires Sanbox switched off)
 #build_bundle maciOS iPhoneOS iphoneos &&
