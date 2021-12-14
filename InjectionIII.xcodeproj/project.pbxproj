@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		95E045C4275F0A800038DFEB /* InjectionSetup in Resources */ = {isa = PBXBuildFile; fileRef = 95E045C3275F0A800038DFEB /* InjectionSetup */; };
+		95F0024E2760954200407FF8 /* ScopedBookmarkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F0024D2760954200407FF8 /* ScopedBookmarkManager.swift */; };
 		BB16653A25E9A5F2001407AE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BB16653925E9A5F0001407AE /* main.m */; };
 		BB16653E25EC5FE0001407AE /* InjectionClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB16653D25EC5FDF001407AE /* InjectionClient.swift */; };
 		BB16653F25EC6158001407AE /* Xprobe+Service.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB56393F1FD5D535002FFCEF /* Xprobe+Service.mm */; };
@@ -152,6 +153,7 @@
 
 /* Begin PBXFileReference section */
 		95E045C3275F0A800038DFEB /* InjectionSetup */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = InjectionSetup; sourceTree = "<group>"; };
+		95F0024D2760954200407FF8 /* ScopedBookmarkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScopedBookmarkManager.swift; path = HotReloading/Sources/injectiond/ScopedBookmarkManager.swift; sourceTree = SOURCE_ROOT; };
 		BB037DF31FAD808B004B267C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		BB037DF41FAD80D0004B267C /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		BB070C252512851B002FC45A /* AppCodePlugin */ = {isa = PBXFileReference; lastKnownFileType = folder; path = AppCodePlugin; sourceTree = "<group>"; };
@@ -535,6 +537,7 @@
 				BBCA02011FB0F10300E45F0F /* AppDelegate.swift */,
 				BB7D7CAB2512F8F00069FE2C /* UpdateCheck.swift */,
 				BBCA02551FB1099500E45F0F /* InjectionServer.swift */,
+				95F0024D2760954200407FF8 /* ScopedBookmarkManager.swift */,
 				CEC17029253ED117002E823F /* Experimental.swift */,
 				BBB2C6FD26FC9C2900E91E67 /* TupleRegex.swift */,
 				BBE490CE1FB2368A003D41BB /* FileWatcher.swift */,
@@ -1018,6 +1021,7 @@
 				BBEB704C1FD28C6F00127711 /* XcodeHash.m in Sources */,
 				BBCA02021FB0F10300E45F0F /* AppDelegate.swift in Sources */,
 				BB7D7CAC2512F8F00069FE2C /* UpdateCheck.swift in Sources */,
+				95F0024E2760954200407FF8 /* ScopedBookmarkManager.swift in Sources */,
 				BB4EC3FE244FA3C40079E244 /* RMWindowController.m in Sources */,
 				BBE490D01FB2368A003D41BB /* FileWatcher.swift in Sources */,
 				BB4EC3FC244FA3C40079E244 /* RMDeviceController.m in Sources */,
