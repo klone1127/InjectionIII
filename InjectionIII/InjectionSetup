@@ -45,8 +45,8 @@ function sign() {
     frameworkPlistPath="$1/Info.plist"
     /usr/libexec/PlistBuddy -c "Set :CFBundleIdentifier $PRODUCT_BUNDLE_IDENTIFIER" $frameworkPlistPath
     /usr/libexec/PlistBuddy -c "Save" $frameworkPlistPath
-    echo "修改后的info.plist"
-    /usr/libexec/PlistBuddy -c "Print" $frameworkPlistPath
+#    echo "修改后的info.plist"
+#    /usr/libexec/PlistBuddy -c "Print" $frameworkPlistPath
     /usr/bin/codesign -fs "$EXPANDED_CODE_SIGN_IDENTITY" "$frameworkPath"
 }
 
