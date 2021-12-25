@@ -68,6 +68,35 @@ Bundle(path: "/Applications/InjectionIII.app/Contents/Resources/macOSInjection.b
 #endif
 ```
 
+or
+
+```swift
+#if DEBUG
+#if TARGET_OS_SIMULATOR
+    NSString *injectionBundlePath = @"/Applications/InjectionIII.app/Contents/Resources/iOSInjection.bundle";
+#else
+    NSString *injectionBundlePath = [[NSBundle mainBundle] pathForResource:@"iOSDeviceInjection" ofType:@"bundle"];
+#endif
+    NSBundle *injectionBundle = [NSBundle bundleWithPath:injectionBundlePath];
+    if (injectionBundle) {
+        [injectionBundle load];
+    } else {
+        NSLog(@"Not Found Injection Bundle");
+    }
+#endif
+```
+
+`Build Phase -> Run Script ` run setup shell.
+
+```shell
+if [[ "$CONFIGURATION" = "Debug" && "$ARCHS" = "arm64" ]]; then
+    InjectionSetup="/Applications/InjectionIII.app/Contents/Resources/InjectionSetup"
+    if [[ -e "$InjectionSetup" ]]; then
+        sh "$InjectionSetup"
+    fi
+fi
+```
+
 Adding one of these lines loads a bundle included in the `InjectionIII.app`'s
 resources which connects over a localhost socket to the InjectionIII app which runs on the task bar.
 Once injection is connected, you'll be prompted to select the directory containing the project file for the app you wish to inject. This starts a `file watcher` for that directory inside the Mac app so whenever
