@@ -73,16 +73,16 @@ or
 ```swift
 #if DEBUG
 #if TARGET_OS_SIMULATOR
-    NSString *injectionBundlePath = @"/Applications/InjectionIII.app/Contents/Resources/iOSInjection.bundle";
+    let injectionBundlePath = "/Applications/InjectionIII.app/Contents/Resources/iOSInjection.bundle"
 #else
     NSString *injectionBundlePath = [[NSBundle mainBundle] pathForResource:@"iOSDeviceInjection" ofType:@"bundle"];
 #endif
-    NSBundle *injectionBundle = [NSBundle bundleWithPath:injectionBundlePath];
-    if (injectionBundle) {
-        [injectionBundle load];
-    } else {
-        NSLog(@"Not Found Injection Bundle");
-    }
+    let injectionBundlePath = Bundle.main.path(forResource: "iOSDeviceInjection", ofType: "bundle")
+    if (injectionBundle != nil) {
+            injectionBundle?.load()
+     } else {
+            print("Not found bundle")
+     }
 #endif
 ```
 
@@ -126,7 +126,7 @@ your application through a web-like interface and execute code against them. Ent
 If you want to build this project from source (which you may need to do to use injection with macOS apps) you'll need to use:
 
     git clone https://github.com/johnno1962/InjectionIII --recurse-submodules
-    
+
 ### Available downloads
 
 | Xcode 10.2+ | Monterey & Xcode 13 | AppCode Plugin |
