@@ -19,6 +19,8 @@ function build_bundle () {
     PLATFORM=$2
     SDK=$3
     ARCHSValue=$4
+    BUNDLE_CONFIG=Release
+    
     if [ $ARCHSValue ] ;then
         echo "使用指定架构 - ：$ARCHSValue"
     else
@@ -32,13 +34,13 @@ function build_bundle () {
         echo "Missing RPATH $SWIFT_DYLIBS_PATH $XCTEST_FRAMEWORK_PATH"
         exit 1
     fi
-    "$DEVELOPER_BIN_DIR"/xcodebuild SYMROOT=$SYMROOT ARCHS="$ARCHSValue" -sdk $SDK -config $CONFIGURATION -target SwiftTrace &&
-    "$DEVELOPER_BIN_DIR"/xcodebuild SYMROOT=$SYMROOT ARCHS="$ARCHSValue" PRODUCT_NAME="${FAMILY}Injection" LD_RUNPATH_SEARCH_PATHS="$SWIFT_DYLIBS_PATH $XCTEST_FRAMEWORK_PATH @loader_path/Frameworks" -sdk $SDK -config $CONFIGURATION -target InjectionBundle &&
-    "$DEVELOPER_BIN_DIR"/xcodebuild SYMROOT=$SYMROOT ARCHS="$ARCHSValue" PRODUCT_NAME="${FAMILY}SwiftUISupport" -sdk $SDK -config $CONFIGURATION -target SwiftUISupport &&
+    "$DEVELOPER_BIN_DIR"/xcodebuild SYMROOT=$SYMROOT ARCHS="$ARCHSValue" -sdk $SDK -config $BUNDLE_CONFIG -target SwiftTrace &&
+    "$DEVELOPER_BIN_DIR"/xcodebuild SYMROOT=$SYMROOT ARCHS="$ARCHSValue" PRODUCT_NAME="${FAMILY}Injection" LD_RUNPATH_SEARCH_PATHS="$SWIFT_DYLIBS_PATH $XCTEST_FRAMEWORK_PATH @loader_path/Frameworks" -sdk $SDK -config $BUNDLE_CONFIG -target InjectionBundle &&
+    "$DEVELOPER_BIN_DIR"/xcodebuild SYMROOT=$SYMROOT ARCHS="$ARCHSValue" PRODUCT_NAME="${FAMILY}SwiftUISupport" -sdk $SDK -config $BUNDLE_CONFIG -target SwiftUISupport &&
 
-    rsync -au $SYMROOT/$CONFIGURATION-$SDK/*.bundle "$CODESIGNING_FOLDER_PATH/Contents/Resources" &&
+    rsync -au $SYMROOT/$BUNDLE_CONFIG-$SDK/*.bundle "$CODESIGNING_FOLDER_PATH/Contents/Resources" &&
     mkdir -p "$CODESIGNING_FOLDER_PATH/Contents/Resources/${FAMILY}Injection.bundle/Frameworks/SwiftTrace.framework/Versions/A/Resources" &&
-    rsync -au $SYMROOT/$CONFIGURATION-$SDK/SwiftTrace.framework/{Headers,Modules,SwiftTrace} "$CODESIGNING_FOLDER_PATH/Contents/Resources/${FAMILY}Injection.bundle/Frameworks/SwiftTrace.framework/Versions/A" &&
+    rsync -au $SYMROOT/$BUNDLE_CONFIG-$SDK/SwiftTrace.framework/{Headers,Modules,SwiftTrace} "$CODESIGNING_FOLDER_PATH/Contents/Resources/${FAMILY}Injection.bundle/Frameworks/SwiftTrace.framework/Versions/A" &&
     ln -s A "$CODESIGNING_FOLDER_PATH/Contents/Resources/${FAMILY}Injection.bundle/Frameworks/SwiftTrace.framework/Versions/Current"
     for thing in SwiftTrace Modules Resources Headers; do
         ln -sf Versions/Current/$thing "$CODESIGNING_FOLDER_PATH/Contents/Resources/${FAMILY}Injection.bundle/Frameworks/SwiftTrace.framework"
@@ -55,7 +57,7 @@ build_bundle macOS MacOSX macosx &&
 build_bundle tvOS AppleTVSimulator appletvsimulator &&
 
 # iphoneos on M1 mac (requires Sanbox switched off)
-#build_bundle maciOS iPhoneOS iphoneos &&
+build_bundle maciOS iPhoneOS iphoneos &&
 
 # macOSSwiftUISupport needs to be built separately from the main app
 "$DEVELOPER_BIN_DIR"/xcodebuild SYMROOT=$SYMROOT ARCHS="$ARCHS" -sdk macosx -config $CONFIGURATION -target SwiftUISupport &&
@@ -70,7 +72,8 @@ for thing in Modules Resources Headers; do
 done &&
 
 # This seems to be a bug producing .swiftinterface files.
-perl -pi.bak -e 's/SwiftTrace.(Swift(Trace|Meta)|dyld_interpose_tuple)/$1/g' $CODESIGNING_FOLDER_PATH/Contents/Resources/{macOSInjection.bundle/Contents,{i,maci,tv}OSInjection.bundle}/Frameworks/SwiftTrace.framework/Modules/*/*.swiftinterface &&
+perl -pi.bak -e 's/SwiftTrace.(Swift(Trace|Meta)|dyld_interpose_tuple|rebinding)/$1/g' $CODESIGNING_FOLDER_PATH/Contents/Resources/{macOSInjection.bundle/Contents,{i,maci,tv}OSInjection.bundle}/Frameworks/SwiftTrace.framework/Modules/*/*.swiftinterface &&
+perl -pi.bak -e 's@(import _Concurrency)@// $1@g' $CODESIGNING_FOLDER_PATH/Contents/Resources/{macOSInjection.bundle/Contents,{i,maci,tv}OSInjection.bundle}/Frameworks/SwiftTrace.framework/Modules/*/*.swiftinterface &&
 find $CODESIGNING_FOLDER_PATH/Contents/Resources/*.bundle -name '*.bak' -delete
 
 # setup InjectionSetup
