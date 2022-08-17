@@ -73,16 +73,31 @@ or
 ```swift
 #if DEBUG
 #if TARGET_OS_SIMULATOR
-    let injectionBundlePath = "/Applications/InjectionIII.app/Contents/Resources/iOSInjection.bundle"
+        let injectionBundlePath = "/Applications/InjectionIII.app/Contents/Resources/iOSInjection.bundle"
+#else
+        let injectionBundlePath = Bundle.main.path(forResource: "iOSDeviceInjection", ofType: "bundle") ?? ""
+#endif
+        let injectionBundle = Bundle(path: injectionBundlePath)
+        if let injectionBundle = injectionBundle {
+            if injectionBundle.load() {
+                print("load success");
+            } else {
+                print("load falied");
+            }
+        } else {
+            print("not found bundle")
+        }
+#endif
+```
+
+```objective-c
+#if DEBUG
+#if TARGET_OS_SIMULATOR
+    NSString *injectionBundlePath = @"/Applications/InjectionIII.app/Contents/Resources/iOSInjection.bundle";
 #else
     NSString *injectionBundlePath = [[NSBundle mainBundle] pathForResource:@"iOSDeviceInjection" ofType:@"bundle"];
 #endif
-    let injectionBundlePath = Bundle.main.path(forResource: "iOSDeviceInjection", ofType: "bundle")
-    if (injectionBundle != nil) {
-            injectionBundle?.load()
-     } else {
-            print("Not found bundle")
-     }
+    BOOL loadResult = [[NSBundle bundleWithPath:injectionBundlePath] load];
 #endif
 ```
 
